@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Container } from '@mui/material';
+import AuthProvider from './components/AuthProvider';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import CategoryComponent from './pages/CategoryComponent';
+import ImagesComponent from './pages/ImagesComponent';
+import PromotionalMessages from './pages/PromotionalMessages';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Header />
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' , width: '100vw'}}>
+          <Container style={{ marginTop: '20px', flexGrow: 1 }}>
+            <Routes>
+              <Route path="/" element={<CategoryComponent />} />
+              <Route path="/images" element={<ImagesComponent/>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path='/notification' element={<PromotionalMessages />}/>
+            </Routes>
+          </Container>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
